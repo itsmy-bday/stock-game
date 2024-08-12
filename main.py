@@ -1,6 +1,6 @@
-from replit import db  #the database
-import getpass  #for the password
-import os  #secrets
+from replit import db
+import getpass
+import os
 import time
 import datetime
 import random
@@ -27,6 +27,9 @@ scrteeee = os.getenv("INFOOO")
 
 keys = db.keys()
 values = db.values()
+
+rihtnow = datetime.datetime.now()
+date_string = rihtnow.strftime("%d/%m/%Y")
 
 
 def wow():
@@ -106,7 +109,91 @@ def stockss():
       fakekey, fakevalue = stonke(whichstock, whichstock)
       keye = fakekey
       cost_of_stock = float(fakevalue)
+      rusuress = input("Are you sure you want to buy " + str(keye) + " for $" +
+                       str(float(cost_of_stock)) + "? (write Yes or No): ")
+      if rusuress.lower() == "no":
+        stockss()
+      elif rusuress.lower() == "yes":
+        pass
+      elif rusuress.lower() != "yes" or "no":
+        print("I don't understand what you mean.")
+        time.sleep(1)
+        menue()
 
+      shares = int(
+          input("How many shares do you want to buy of " + keye + "?: "))
+
+      if shares <= 0:
+        dooyouwanttobuy = input(
+            "You don't wan't to buy any stocks? (write Yes or No): ")
+        if dooyouwanttobuy.lower() == "yes":
+          menue()
+        elif dooyouwanttobuy.lower() == "no":
+          stockss()
+        else:
+          print("I don't know what you mean by that.")
+          menue()
+
+      cost = float(shares) * float(cost_of_stock)
+      if float(cost) > float(money):
+        print("Insufficient funds.")
+        time.sleep(1)
+        stockss()
+      else:
+        #money = float(money) - float(cost) delte this?
+        loading_screen(random.choice([1, 2, 3]))
+
+        shevessstocks(keye, shares, "plus")  #putting it in the stoks they have
+
+        shevessmoocha(cost, "minus")
+
+        print("Transaction complete.\n")
+        print(f"You bought {shares} share(s) of {keye}!")
+        wowyouboughtsommit = f"You bought {shares} share(s) of {keye} at {date_string}!"
+        historychange(wowyouboughtsommit)
+        refreshvariables()
+        time.sleep(2)
+        wow()
+        menue()
+  elif immediatebuy.lower() == "sell":
+    print("\n")  #newline
+    checkstocks()  #print which stocks you have
+    print("\n")
+
+    wannabuyorselle = input(
+        "Do you want to sell a stock or go to the menue? (write \"sell\" or \"menue\"): "
+    )
+    if wannabuyorselle.lower() == "menue":
+      menue()
+    elif wannabuyorselle.lower() != "sell" and wannabuyorselle.lower(
+    ) != "menue":
+      print("You didn't write \"sell\" or \"menue\".")
+      stockss()
+    elif wannabuyorselle.lower() == "sell":
+      sellwhichonese = input(
+          "\nWhich symbol(s) do you want to sell?: ")  #the name of symbol
+      if sellwhichonese not in listofstonke:
+        print("\nYou don't have that symbol.")
+        time.sleep(1)
+        stockss()
+      elif sellwhichonese in listofstonke:
+        howmanywannasell = input(
+            "\nHow many shares do you want to sell?: ")  #shares
+        if int(howmanywannasell) > listofstonke[sellwhichonese]:
+          print("\nYou don't have that many shares.")
+          time.sleep(1)
+          stockss()
+        elif int(howmanywannasell) <= listofstonke[sellwhichonese]:
+          dakey, davalue = stonke(sellwhichonese, sellwhichonese)
+          multiply = float(davalue) * float(howmanywannasell)
+
+          shevessstocks(sellwhichonese, howmanywannasell, "minus")
+
+          shevessmoocha(multiply, "plus")
+          print("Sell complete.")
+          refreshvariables()
+          time.sleep(2)
+          menue()
 
 
 def refreshvariables():
