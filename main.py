@@ -16,6 +16,10 @@ import random
 #Allow the user to set alerts for specific stocks to notify them of any changes in price.
 #Create different levels of difficulty, each with their own challenges and rewards.
 
+scrtee = os.environ["INFO"]
+scrteee = os.getenv["INFOO"]
+scrteeee = os.getenv["INFOOO"]
+
 
 keys = db.keys()
 values = db.values()
@@ -56,6 +60,55 @@ def menue():
     print(f"{k}: {v_as_notzero}")
 
   answr = input("\nWrite 'stocks', 'codes', 'history' or 'mystocks' to go there: ")
+
+
+if answr.lower() == "stocks":
+  stockss()    
+
+elif answr.lower() == "codes":
+  code = input("What is your code?: ")
+  if code == scrtee:
+    db.clear()
+    print("Clear complete.\n")
+    exit()
+  elif code == scrteee:
+    keys = db.keys()
+    values = db.values()
+    print(keys)
+    print(values)
+  elif code == scrteeee:
+    asiaepfspi = input("Plus/minus: ")
+    ashoiasefiasp = input("Amount: ")
+    if asiaepfspi.lower() == "plus":
+      shevessmoocha(ashoiasefiasp, "plus")
+      refreshvariables()
+      menue()
+    elif asiaepfspi.lower() == "minus":
+      shevessmoocha(ashoiasefiasp, "minus")
+      refreshvariables()
+      menue()
+  else:
+    print("That is not a code.")
+    menue()
+
+elif answr.lower() == "mystocks":
+  checkstocks()
+  time.sleep(2)
+  menue()
+
+elif answr.lower() == "history":
+  print("\n")
+  for i in history:
+    print("'" + str(i) + "'")
+  time.sleep(2)
+  menue()
+
+else:
+  print("I don't understand what you mean.")
+  time.sleep(1)
+  answr = ""
+  wow()
+  menue()
 
 
 def gamestart():
